@@ -1,31 +1,28 @@
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import org.json.JSONException;
 
-public class NaverMain {
+
+public class MainDo {
 
 	public static void main(String[] args) {
-		//문자열 하나 콘솔에서 입력받음 --> 검색할 이름 일부분 입력
-	//HTTP로 데이터를 요청
+		//문자열 하나 콘솔에서 입력받음  --> 검색할 이름 일부분 입력
+		//HTTP로 데이터를 요청
 		//1. 데이터를 요청할 API 주소를 문자열로 선언
 		//2. 전달할 파라메터를 인코딩 작업
-			//변수 이름은 상관없음. 데이터를 주고 받는게 중요
 		try {
-		//3. URL 완성 주소랑 파라메터(쿼리 스트링)을 조합
-			String apiUrl = "https://www.naver.com";
+			//3. Url 완성 주소랑 파라메터(쿼리 스트링)를 조합
+			String apiUrl = "http://localhost:9999";
 			URL url = new URL(apiUrl);
-		//4. open connection 요청 (연결)
+			//4. open connection 요청
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		//5. inputstream 초기화해서 읽음 (네이버의 홈화면을 받아온것)
+			//5. inputstream 초기화 해서 읽음
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		//6. 데이터가 json이면 json을 파싱해서 원하는 데이터만 추출한 후 출력
+			//6. json이면 json 파싱해서 원하는 데이터만 추출 후 출력
 			String result = "";
 			while(true) {
 				String str = br.readLine();
@@ -39,11 +36,13 @@ public class NaverMain {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
-	
+		
 	}
 
 }
+
