@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.mapper.MemberMapper">
+	<select id="login" parameterType="map" resultType="board.dto.MemberDTO">
+		select id,pass,name,age,(select lower(grade_name) from grade_list where grade_no = grade)  from member where id = #{id} and pass = #{pass}
+	</select>
+	<select id="selectMember" parameterType="String" resultType="board.dto.MemberDTO">
+		select * from member where id = #{id}
+	</select>
+	<update id="updateMember" parameterType="board.dto.MemberDTO">
+		update member set name = #{name}, pass = #{pass}, age = #{age} where id = #{id}
+	</update>
+	<select id="selectAllMember" resultType="board.dto.MemberDTO">
+		select id,pass,name,age,(select lower(grade_name) from grade_list where grade_no = grade)  from member
+	</select>
+	<select id="selectSearchMember" parameterType="map" resultType="board.dto.MemberDTO">
+		select id,pass,name,age,(select lower(grade_name) from grade_list where grade_no = grade)  from member where
+		<choose>
+			<when test="kind.equals('id')">
+				id like '%'||#{search}||'%'
+			</when>
+			<when test="kind.equals('name')">
+				name like '%'||#{search}||'%' 
+			</when>
+			<otherwise>
+				grade = #{search}
+			</otherwise>
+		</choose>
+	</select>
+	<update id="updateMemberAdmin" parameterType="board.dto.MemberDTO">
+		update member set name=#{name}, age=#{age}, grade = 
+		(select grade_no from grade_list where grade_name = lower(#{grade})) where id = #{id}
+	</update>
+	<delete id="deleteMemberAdmin" parameterType="String">
+		delete from member where id = #{id}
+	</delete>
+</mapper>
