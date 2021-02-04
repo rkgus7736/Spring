@@ -56,6 +56,15 @@ public class BoardDTO {
 		this.cCount = cCount;
 	}
 
+	
+	public BoardDTO(int bno, String title, String writer, String content) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.writer = writer;
+		this.content = content;
+	}
+
 	public String getWriter() {
 		return writer;
 	}

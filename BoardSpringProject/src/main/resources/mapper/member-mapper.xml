@@ -6,15 +6,19 @@
 	<select id="login" parameterType="map" resultType="board.dto.MemberDTO">
 		select id,pass,name,age,(select lower(grade_name) from grade_list where grade_no = grade)  from member where id = #{id} and pass = #{pass}
 	</select>
+	
 	<select id="selectMember" parameterType="String" resultType="board.dto.MemberDTO">
 		select * from member where id = #{id}
 	</select>
+	
 	<update id="updateMember" parameterType="board.dto.MemberDTO">
 		update member set name = #{name}, pass = #{pass}, age = #{age} where id = #{id}
 	</update>
+	
 	<select id="selectAllMember" resultType="board.dto.MemberDTO">
 		select id,pass,name,age,(select lower(grade_name) from grade_list where grade_no = grade)  from member
 	</select>
+	
 	<select id="selectSearchMember" parameterType="map" resultType="board.dto.MemberDTO">
 		select id,pass,name,age,(select lower(grade_name) from grade_list where grade_no = grade)  from member where
 		<choose>
@@ -29,13 +33,16 @@
 			</otherwise>
 		</choose>
 	</select>
+	
 	<update id="updateMemberAdmin" parameterType="board.dto.MemberDTO">
 		update member set name=#{name}, age=#{age}, grade = 
 		(select grade_no from grade_list where grade_name = lower(#{grade})) where id = #{id}
 	</update>
+	
 	<delete id="deleteMemberAdmin" parameterType="String">
 		delete from member where id = #{id}
 	</delete>
+	
 	<insert id="insertLog" parameterType="map">
 		insert into MEMBERLOG values(to_date(#{log_date},'YYYY/MM/DD HH24:MI:SS'), #{code_number}, #{message})
 	</insert>

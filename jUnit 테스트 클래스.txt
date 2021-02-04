@@ -1,0 +1,21 @@
+@RunWith(SpringRunner.class) //jUnit test를 사용하려면 선언해줘야함 
+@SpringBootTest
+class StudentWebProjectApplicationTests {
+
+	@Autowired
+	StudentMapper mapper;
+	
+	@BeforeAll
+	static void start() {
+		//static void일 경우 따로 선언을 해줘야한다.
+		StudentWebProjectApplicationTests t = new StudentWebProjectApplicationTests();
+		//제대로 나오는지 확인하기
+		System.out.println(t.mapper.selectAllStudent().toString());
+	}
+	@Test
+	void test() {
+		System.out.println("test");
+	}
+
+	
+}

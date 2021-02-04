@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.mapper.BoardMapper">
+	<select id="selectBoardList" parameterType="int" resultType="board.dto.BoardDTO">
+		select bno,title,bdate,bcount, writer,content,blike,bhate,comment_count from (select ceil(rownum / 7) as pagenum,bno,title,bdate,bcount, writer,content,blike,bhate,comment_count from
+ 	 		 (select b.*, nvl(c.comment_count,0) as comment_count from board b,
+ 	 		 (select bno, count(*) as comment_count from board_comment group by bno) c 
+ 	 		 where b.bno = c.bno(+) 
+ 	 		 <choose>
+ 	 		 	<when test="mode.equals('blike')">
+	 	 		 	order by b.blike desc)) 
+ 	 		 	</when>
+ 	 		 	<when test="mode.equals('bhate')">
+	 	 			 order by b.bhate desc))
+ 	 		 	</when>
+				<otherwise>
+	 	 			 order by b.bno desc))
+				</otherwise>
+ 	 		 </choose>
+ 	 		  where pagenum = #{pageNo} 	 	
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<update id="addCount" parameterType="int">
+		update board set bcount = bcount+1 where bno = #{bno}
+	</update>
+	
+	<select id="selectBoard" parameterType="int" resultType="board.dto.BoardDTO">
+		select * from board where bno = #{bno}
+	</select>
+	
+	<select id="selectBoardComment" parameterType="int" resultType="comment">
+		select * from board_comment where bno = #{bno}
+	</select>
+	
+	<insert id="insertBoardComment" parameterType="board.dto.CommentDTO">
+		insert into board_comment(cno, bno, writer, content) values(board_comment_seq.nextval,#{bno},#{writer},#{content})
+	</insert>
+	
+	<update id="updateCommentLike" parameterType="int">
+		update board_comment set blike = blike + 1 where cno = #{cno}  
+	</update>
+	
+	<update id="updateCommentHate" parameterType="int">
+		update board_comment set bhate = bhate+ 1 where cno = #{cno}  
+	</update>
+	
+	<update id="addBoardLikeHate" parameterType="map">
+		update board set 
+		<choose>
+			<when test="mode == 0">
+				blike = blike + 1
+			</when>
+			<otherwise>
+				bhate = bhate + 1
+			</otherwise>
+		</choose>
+		where bno = #{bno}
+	</update>
+
+	<select id="newBno" resultType="int">
+		select bno_seq.nextval from dual
+	</select>
+	
+	<insert id="insertBoard" parameterType="board.dto.BoardDTO">
+		insert into board(bno,title,writer,content) values(#{bno},#{title},#{writer},#{content})
+	</insert>
+	
+	<insert id="insertFileList" parameterType="board.dto.FileDTO">
+		insert into board_file_list values(#{bno},#{writer},#{fileName})
+	</insert>
+	
+	<select id="selectFileList" parameterType="int" resultType="board.dto.FileDTO">
+		select * from board_file_list where bno = #{bno}
+	</select>
+</mapper>
+
