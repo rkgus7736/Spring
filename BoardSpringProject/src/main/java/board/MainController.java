@@ -123,7 +123,7 @@ public class MainController {
 	public String updateMemberAction(HttpServletRequest request, HttpServletResponse response) {
 		//아이디를 session으로 받지않아도 되지만,session으로 받으면 수정하기 전에 세션이 유효한지 확인 가능 
 		//아이디 값을 session으로 받아올거면 HttpServletResponse도 불러와줘야함
-		String id= (String) request.getSession().getAttribute("id");
+		String id= (String)request.getSession().getAttribute("id");
 		String pass= request.getParameter("pass");
 		String name= request.getParameter("name");
 		int age = Integer.parseInt(request.getParameter("age"));

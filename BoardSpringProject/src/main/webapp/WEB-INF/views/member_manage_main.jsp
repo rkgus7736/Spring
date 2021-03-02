@@ -185,15 +185,15 @@ td{
 				<table>
 				<c:forEach var="member" items="${requestScope.list }">
 					<tr> 
-							<td>${member.id }
-							<input type="hidden" name="id" value="${member.id }"></td>
-							<td><input type="text" name="name" value="${member.name }"></td>
-							<td><input type="text" name="age" value="${member.age }"></td>
-							<td><input type="text" name="grade" value="${member.grade }"></td>
-							<td>
-								<a href="#" class="update">수정</a> / <a href="#" class="delete">삭제</a>  
-							</td>
-						</tr>
+						<td>${member.id }
+						<input type="hidden" name="id" value="${member.id }"></td>
+						<td><input type="text" name="name" value="${member.name }"></td>
+						<td><input type="text" name="age" value="${member.age }"></td>
+						<td><input type="text" name="grade" value="${member.grade }"></td>
+						<td>
+							<a href="#" class="update">수정</a> / <a href="#" class="delete">삭제</a>  
+						</td>
+					</tr>
 				</c:forEach>
 				
 				</table>

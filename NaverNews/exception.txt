@@ -1,0 +1,8 @@
+Server returned HTTP response code: 401 for URL: https://openapi.naver.com/v1/search/news?query=%EC%BD%94%EB%A1%9C%EB%82%98&sort=date&start=1&display=20
+A JSONObject text must begin with '{' at 0 [character 1 line 1]
+Server returned HTTP response code: 401 for URL: https://openapi.naver.com/v1/search/news?query=&sort=&display=20
+A JSONObject text must begin with '{' at 0 [character 1 line 1]
+Server returned HTTP response code: 401 for URL: https://openapi.naver.com/v1/search/news?query=%EC%BD%94%EB%A1%9C%EB%82%98&display=20
+A JSONObject text must begin with '{' at 0 [character 1 line 1]
+Server returned HTTP response code: 401 for URL: https://openapi.naver.com/v1/search/news?query=%EC%BD%94%EB%A1%9C%EB%82%98&display=20
+A JSONObject text must begin with '{' at 0 [character 1 line 1]
